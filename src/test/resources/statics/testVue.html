@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<script src="vue.js"></script>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<!-- 事件冒泡
+			@click.stop
+			@click.prevent
+			@click.self 实现触发当前元素的事件，只会阻止自己身上的行为的触发，并不会阻止别的元素
+			@click.capture
+			@click.once 阻止一次
+		
+		 -->
+		<div id="app">
+			<input type='button' value='狼起来' :click="go()"/>
+			<input type='button' value='低调' :click="cancle()"/>
+			<h4>{{msg}}</h4>
+		</div>
+		<script>
+			let vm = new Vue({
+				el:'#app',
+				data:{
+					msg:'猥琐发育，别浪',
+					intervalId: null
+				},
+				methods:{
+					go(){
+						if(this.intervalId != null){
+							return;
+						}
+						this.intervalId = setInterval( () => {
+							if(typeof this.msg !='undefined'){
+								var start = this.msg.substring(0,1);
+								var end = this.msg.substring(1);
+								this.msg = end + start;
+							}
+						},1000);
+					},
+					cancle(){
+						//clearInterval(this.intervalId);
+						//this.intervalId = null;
+					}
+				}
+			});
+		
+		</script>
+	</body>
+</html>
